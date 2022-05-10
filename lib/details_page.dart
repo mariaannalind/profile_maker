@@ -28,6 +28,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 Form(key: _detailsFormKey,
                     child: Column(
                       children: <Widget>[
+                        const Text("Enter your profile details", style: TextStyle(fontSize: 20)),
                         TextFormField(
                           decoration: const InputDecoration(
                             icon: Icon(Icons.person),

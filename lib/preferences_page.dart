@@ -16,6 +16,7 @@ class _PreferencesPageState extends State<PreferencesPage> {
 
   returnOptions() {
     return <Widget>[
+      const Text("Choose your favorite food", style: TextStyle(fontSize: 20)),
       ListTile(
         title: const Text('Pizza'),
         leading: Radio<FavoriteFoods>(

@@ -38,7 +38,7 @@ class _PhotoPageState extends State<PhotoPage> {
 
   @override
   Widget build(BuildContext context) {
-
+  // TODO refactor
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile Maker: Photo'),
@@ -47,6 +47,8 @@ class _PhotoPageState extends State<PhotoPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            if(!hasPhoto)
+              const Text("Take your profile photo", style: TextStyle(fontSize: 20)),
             if(!hasPhoto)
             FutureBuilder<void>(
               future: _initializeControllerFuture,
@@ -58,6 +60,8 @@ class _PhotoPageState extends State<PhotoPage> {
                 }
               }
             ),
+            if(hasPhoto)
+              const Text("Should we save this photo?", style: TextStyle(fontSize: 20)),
             if(hasPhoto)
               DisplayPictureScreen(imagePath: imagePath, onBackButtonPressed: cleanState),
             if(!hasPhoto)

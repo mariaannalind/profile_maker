@@ -20,10 +20,11 @@ class _ProfilePageState extends State<ProfilePage> {
         title: const Text('Profile Maker'),
       ),
       body: Center(
-
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // TODO make title text into a shared widget
+            const Text("Your profile is empty", style: TextStyle(fontSize: 20)),
             ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(
