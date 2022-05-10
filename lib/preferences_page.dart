@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:profile_maker/shared/bottom_navigation.dart';
 
-
+// TODO move to one place accessible from different widgets
 enum FavoriteFoods { pizza, steak, fries, risotto, burger }
 
 class PreferencesPage extends StatefulWidget {

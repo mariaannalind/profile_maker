@@ -1,8 +1,10 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:profile_maker/models/profile_model.dart';
 import 'package:profile_maker/photo_page.dart';
 import 'package:profile_maker/preferences_page.dart';
 import 'package:profile_maker/profile_page.dart';
+import 'package:provider/provider.dart';
 import 'details_page.dart';
 
 Future<void> main() async {
@@ -11,7 +13,7 @@ Future<void> main() async {
   final cameras = await availableCameras();
   final firstCamera = cameras.last;
 
-  runApp(ProfileMakerApp(availableCamera: firstCamera));
+  runApp(ChangeNotifierProvider(create: (context) => ProfileModel(), child: ProfileMakerApp(availableCamera: firstCamera)));
 }
 
 class ProfileMakerApp extends StatelessWidget {

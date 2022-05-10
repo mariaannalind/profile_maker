@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:profile_maker/models/profile_model.dart';
 import 'package:profile_maker/shared/bottom_navigation.dart';
+import 'package:provider/provider.dart';
 
 
 class PhotoPage extends StatefulWidget {
@@ -97,28 +99,33 @@ class DisplayPictureScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-      Column(
-          children: [
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                      onPressed: () => onBackButtonPressed(),
-                      child: const Text('<- Try again')
-                  ),
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          '/step2',
-                        );
-                      },
-                      child: const Text('Next ->')
-                  ),
-            ]),
-            Image.file(File(imagePath))
-        ]
-      );
+    return Consumer<ProfileModel>(
+      builder: (context, profile, child) {
+        return
+          Column(
+              children: [
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                          onPressed: () => onBackButtonPressed(),
+                          child: const Text('<- Try again')
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            profile.savePhoto(imagePath);
+                            Navigator.pushNamed(
+                              context,
+                              '/step2',
+                            );
+                          },
+                          child: const Text('Next ->')
+                      ),
+                    ]),
+                Image.file(File(imagePath))
+              ]
+          );
+      }
+    );
   }
 }
