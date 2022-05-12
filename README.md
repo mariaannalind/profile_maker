@@ -5,6 +5,7 @@ A learning project. For now it has no real function other than trying out Flutte
 ## TODO
 - ~~implement handling app state with provider/consumer pattern~~
 - ~~reset state~~
+- ~~prefil with current state~~
 - mark radio buttons as chosen
 - styling
 - refactor conditional rendering of widgets
