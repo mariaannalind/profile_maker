@@ -4,6 +4,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:profile_maker/models/profile_model.dart';
 import 'package:profile_maker/shared/bottom_navigation.dart';
+import 'package:profile_maker/shared/custom_profile_clipper.dart';
 import 'package:provider/provider.dart';
 
 
@@ -56,7 +57,7 @@ class _PhotoPageState extends State<PhotoPage> {
               future: _initializeControllerFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
-                return CameraPreview(_controller);
+                  return ClipOval(clipper: PreviewProfileClipper(), child: CameraPreview(_controller));
                 } else {
                 return const Center(child: CircularProgressIndicator());
                 }
@@ -122,7 +123,8 @@ class DisplayPictureScreen extends StatelessWidget {
                           child: const Text('Next ->')
                       ),
                     ]),
-                Image.file(File(imagePath))
+                    ClipOval(clipper: PreviewProfileClipper(), child: Image.file(File(imagePath)))
+
               ]
           );
       }

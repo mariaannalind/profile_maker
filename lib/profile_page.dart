@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:profile_maker/shared/custom_profile_clipper.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter/material.dart';
@@ -26,11 +27,9 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Padding(padding: EdgeInsets.all(32.0), child: ProfileContainer()),
-            // TODO make title text into a shared widget
-
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: const [
+             Padding(padding: EdgeInsets.all(32.0), child: ProfileContainer()),
           ],
         ),
       ),
@@ -42,24 +41,37 @@ class _ProfilePageState extends State<ProfilePage> {
 class ProfileContainer extends StatelessWidget {
   _showProfileDetails(ProfileModel profile) {
     return (
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    Column(
         children: [
-          Text(profile.name),
-          Text(profile.email),
-          if(profile.mobile != 0)
-            Text(profile.mobile.toString())
-        ]
-      )
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(profile.name, style: const TextStyle(fontSize: 32.0)),
+              ],
+            ),
+            Padding(padding: const EdgeInsets.symmetric(vertical: 16.0), child:
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(profile.email),
+                        if(profile.mobile != 0)
+                          Text(profile.mobile.toString())
+                      ]
+                  )
+            )
+      ])
     );
   }
 
   _showPhoto(String photoPath) {
-    return Image.file(File(photoPath));
+    return (
+        ClipOval(clipper: ProfileClipper(), child: Image.file(File(photoPath), width: 400, height: 400))
+    );
   }
 
   _showFavoriteFood(String favoriteFood) {
-    return Text('My favorite food is: $favoriteFood');
+    return Padding(padding: const EdgeInsets.symmetric(vertical: 16.0), child: Text('My favorite food is: $favoriteFood'));
   }
 
   const ProfileContainer({Key? key}) : super(key: key);
@@ -122,5 +134,6 @@ class ProfileContainer extends StatelessWidget {
     );
   }
 }
+
 
 
