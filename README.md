@@ -4,6 +4,7 @@ A learning project. For now it has no real function other than trying out Flutte
 
 ## TODO
 - ~~implement handling app state with provider/consummer pattern~~
+- prefil with current state
 - reset state
 - styling
 - refactor condtional rendering of widgets
