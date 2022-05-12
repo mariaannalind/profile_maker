@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:profile_maker/shared/bottom_navigation.dart';
 import 'package:provider/provider.dart';
@@ -14,8 +16,9 @@ class PreferencesPage extends StatefulWidget {
 
 class _PreferencesPageState extends State<PreferencesPage> {
   FavoriteFoods _favoriteFood = FavoriteFoods.pizza;
+  //TODO favorite food from profile
 
-  returnOptions() {
+  returnOptions(FavoriteFoods profileFavoriteFood) {
     return <Widget>[
       const Text("Choose your favorite food", style: TextStyle(fontSize: 20)),
       ListTile(
@@ -85,6 +88,7 @@ class _PreferencesPageState extends State<PreferencesPage> {
   Widget build(BuildContext context) {
     return Consumer<ProfileModel>(
         builder: (context, profile, child) {
+
           return Scaffold(
             appBar: AppBar(
               title: const Text('Profile Maker: Preferences'),
@@ -96,7 +100,7 @@ class _PreferencesPageState extends State<PreferencesPage> {
                 children: [
                   Padding(padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0), child: (
                       Column(
-                          children: returnOptions()
+                          children: returnOptions(profile.favoriteFood)
                       )
                   )
                   ),

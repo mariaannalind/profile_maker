@@ -15,14 +15,16 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage> {
   final _detailsFormKey = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController mobileController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
     return Consumer<ProfileModel>(
         builder: (context, profile, child) {
+          TextEditingController emailController = TextEditingController(text: profile.email != "" ? profile.email : "");
+          TextEditingController nameController = TextEditingController(text: profile.name != "" ? profile.name : "");
+          TextEditingController mobileController = TextEditingController(text: profile.mobile != 0 ? profile.mobile.toString() : "");
+
           return Scaffold(
             appBar: AppBar(
               title: const Text('Profile Maker: Details'),

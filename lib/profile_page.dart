@@ -30,14 +30,7 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             const Padding(padding: EdgeInsets.all(32.0), child: ProfileContainer()),
             // TODO make title text into a shared widget
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(
-                  context,
-                  '/step1',
-                  );
-                },
-                child: const Text('Create Profile'))
+
           ],
         ),
       ),
@@ -54,7 +47,8 @@ class ProfileContainer extends StatelessWidget {
         children: [
           Text(profile.name),
           Text(profile.email),
-          Text(profile.mobile.toString())
+          if(profile.mobile != 0)
+            Text(profile.mobile.toString())
         ]
       )
     );
@@ -78,16 +72,50 @@ class ProfileContainer extends StatelessWidget {
         return Column(
           children: [
             if(!profile.hasProfile)
-            const Text("Your profile is empty!", style: TextStyle(fontSize: 20)),
+              Column(
+                children: [
+                  const Text("Your profile is empty!", style: TextStyle(fontSize: 20)),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          '/step1',
+                        );
+                      },
+                      child: const Text('Create Profile')
+                  ),
+                ]
+              ),
             if(profile.hasProfile)
               Column(
                 children: [
                   _showProfileDetails(profile),
                   if(profile.profilePhotoPath != "")
                   _showPhoto(profile.profilePhotoPath),
-                  _showFavoriteFood(profile.favoriteFood.name)
+                  _showFavoriteFood(profile.favoriteFood.name),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ElevatedButton(
+                          onPressed: () {
+                            profile.resetProfile();
+
+                          },
+                          child: const Text('Reset Profile')),
+                      ElevatedButton(
+                          onPressed: () {
+                            Navigator.pushNamed(
+                              context,
+                              '/step1',
+                            );
+                          },
+                          child: const Text('Edit Profile')),
+                    ],
+                  )
                 ]
-              )
+              ),
+
+
           ],
         );
       }

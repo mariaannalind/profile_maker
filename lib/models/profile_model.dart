@@ -9,7 +9,7 @@ class ProfileModel extends ChangeNotifier {
   int mobile = 0;
   FavoriteFoods favoriteFood = FavoriteFoods.pizza;
 
-  bool get hasProfile => (!(profilePhotoPath == "") || !(name == "") || !(email == "") || !(mobile == 0));
+  bool get hasProfile => (!(profilePhotoPath == "") || !(name == "") || !(email == "") || !(mobile == 0) || !(favoriteFood == FavoriteFoods.pizza));
 
   void savePhoto(String photoPath) {
     profilePhotoPath = photoPath;
@@ -25,6 +25,15 @@ class ProfileModel extends ChangeNotifier {
 
   void savePreferences(FavoriteFoods food) {
     favoriteFood = food;
+    notifyListeners();
+  }
+
+  void resetProfile() {
+    profilePhotoPath = "";
+    name = "";
+    email = "";
+    mobile = 0;
+    favoriteFood = FavoriteFoods.pizza;
     notifyListeners();
   }
 }
