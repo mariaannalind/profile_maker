@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:provider/provider.dart';
@@ -27,8 +28,8 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Padding(padding: EdgeInsets.all(32.0), child: ProfileContainer()),
             // TODO make title text into a shared widget
-            const ProfileContainer(),
             ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(
@@ -46,7 +47,29 @@ class _ProfilePageState extends State<ProfilePage> {
 }
 
 class ProfileContainer extends StatelessWidget {
+  _showProfileDetails(ProfileModel profile) {
+    return (
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(profile.name),
+          Text(profile.email),
+          Text(profile.mobile.toString())
+        ]
+      )
+    );
+  }
+
+  _showPhoto(String photoPath) {
+    return Image.file(File(photoPath));
+  }
+
+  _showFavoriteFood(String favoriteFood) {
+    return Text('My favorite food is: $favoriteFood');
+  }
+
   const ProfileContainer({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -55,11 +78,16 @@ class ProfileContainer extends StatelessWidget {
         return Column(
           children: [
             if(!profile.hasProfile)
-            const Text("Your profile is empty", style: TextStyle(fontSize: 20)),
+            const Text("Your profile is empty!", style: TextStyle(fontSize: 20)),
             if(profile.hasProfile)
-              const Text("Your profile is not empty", style: TextStyle(fontSize: 20)),
-            if(profile.hasProfile)
-            Image.file(File(profile.profilePhotoPath))
+              Column(
+                children: [
+                  _showProfileDetails(profile),
+                  if(profile.profilePhotoPath != "")
+                  _showPhoto(profile.profilePhotoPath),
+                  _showFavoriteFood(profile.favoriteFood.name)
+                ]
+              )
           ],
         );
       }

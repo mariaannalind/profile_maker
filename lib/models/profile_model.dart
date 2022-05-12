@@ -9,10 +9,22 @@ class ProfileModel extends ChangeNotifier {
   int mobile = 0;
   FavoriteFoods favoriteFood = FavoriteFoods.pizza;
 
-  bool get hasProfile => !(profilePhotoPath == "") || !(name == "") || !(email == "") || !(mobile == 0);
+  bool get hasProfile => (!(profilePhotoPath == "") || !(name == "") || !(email == "") || !(mobile == 0));
 
   void savePhoto(String photoPath) {
     profilePhotoPath = photoPath;
+    notifyListeners();
+  }
+
+  void saveDetails(String detailsName, String detailsEmail, int detailsMobile) {
+    name = detailsName;
+    email = detailsEmail;
+    mobile = detailsMobile;
+    notifyListeners();
+  }
+
+  void savePreferences(FavoriteFoods food) {
+    favoriteFood = food;
     notifyListeners();
   }
 }

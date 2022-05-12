@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:profile_maker/shared/bottom_navigation.dart';
+import 'package:provider/provider.dart';
+
+import 'models/profile_model.dart';
 
 // TODO move to one place accessible from different widgets
-enum FavoriteFoods { pizza, steak, fries, risotto, burger }
-
 class PreferencesPage extends StatefulWidget {
   const PreferencesPage({Key? key}) : super(key: key);
 
@@ -12,7 +13,7 @@ class PreferencesPage extends StatefulWidget {
 }
 
 class _PreferencesPageState extends State<PreferencesPage> {
-  FavoriteFoods? _favoriteFood = FavoriteFoods.pizza;
+  FavoriteFoods _favoriteFood = FavoriteFoods.pizza;
 
   returnOptions() {
     return <Widget>[
@@ -24,7 +25,7 @@ class _PreferencesPageState extends State<PreferencesPage> {
           groupValue: _favoriteFood,
           onChanged: (FavoriteFoods? value) {
             setState(() {
-              _favoriteFood = value;
+              _favoriteFood = value ?? FavoriteFoods.pizza;
             });
           },
         ),
@@ -36,7 +37,7 @@ class _PreferencesPageState extends State<PreferencesPage> {
           groupValue: _favoriteFood,
           onChanged: (FavoriteFoods? value) {
             setState(() {
-              _favoriteFood = value;
+              _favoriteFood = value ?? FavoriteFoods.pizza;
             });
           },
         ),
@@ -48,7 +49,7 @@ class _PreferencesPageState extends State<PreferencesPage> {
           groupValue: _favoriteFood,
           onChanged: (FavoriteFoods? value) {
             setState(() {
-              _favoriteFood = value;
+              _favoriteFood = value ?? FavoriteFoods.pizza;
             });
           },
         ),
@@ -60,7 +61,7 @@ class _PreferencesPageState extends State<PreferencesPage> {
           groupValue: _favoriteFood,
           onChanged: (FavoriteFoods? value) {
             setState(() {
-              _favoriteFood = value;
+              _favoriteFood = value ?? FavoriteFoods.pizza;
             });
           },
         ),
@@ -72,7 +73,7 @@ class _PreferencesPageState extends State<PreferencesPage> {
           groupValue: _favoriteFood,
           onChanged: (FavoriteFoods? value) {
             setState(() {
-              _favoriteFood = value;
+              _favoriteFood = value ?? FavoriteFoods.pizza;
             });
           },
         ),
@@ -82,32 +83,36 @@ class _PreferencesPageState extends State<PreferencesPage> {
 
   @override
   Widget build(BuildContext context) {
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profile Maker: Preferences'),
-      ),
-      body: Center(
-
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Padding(padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0), child: (
-                Column(
-                      children: returnOptions()
-                    )
-                )
+    return Consumer<ProfileModel>(
+        builder: (context, profile, child) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Profile Maker: Preferences'),
             ),
+            body: Center(
 
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.popUntil(context, (route) => route.isFirst);
-                },
-                child: const Text('Show Profile'))
-          ],
-        ),
-      ),
-      bottomNavigationBar: const BottomNavigationBarWidget(selectedItem: 3),
-    );
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0), child: (
+                      Column(
+                          children: returnOptions()
+                      )
+                  )
+                  ),
+
+                  ElevatedButton(
+                      onPressed: () {
+                        profile.savePreferences(_favoriteFood);
+                        Navigator.popUntil(context, (route) => route.isFirst);
+                      },
+                      child: const Text('Show Profile'))
+                ],
+              ),
+            ),
+            bottomNavigationBar: const BottomNavigationBarWidget(selectedItem: 3),
+          );
+        } );
+
   }
 }
