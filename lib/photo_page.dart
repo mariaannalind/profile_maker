@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:profile_maker/models/profile_model.dart';
 import 'package:profile_maker/shared/bottom_navigation.dart';
 import 'package:profile_maker/shared/custom_profile_clipper.dart';
+import 'package:profile_maker/shared/routes.dart';
 import 'package:provider/provider.dart';
 
 
@@ -117,7 +118,7 @@ class DisplayPictureScreen extends StatelessWidget {
                             profile.savePhoto(imagePath);
                             Navigator.pushNamed(
                               context,
-                              '/step2',
+                                Routes.routeDetailsPage,
                             );
                           },
                           child: const Text('Next ->')
@@ -131,3 +132,5 @@ class DisplayPictureScreen extends StatelessWidget {
     );
   }
 }
+
+

@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:profile_maker/models/profile_model.dart';
 import 'package:profile_maker/photo_page.dart';
 import 'package:profile_maker/preferences_page.dart';
 import 'package:profile_maker/profile_page.dart';
+import 'package:profile_maker/shared/routes.dart';
 import 'package:provider/provider.dart';
 import 'details_page.dart';
 
@@ -28,12 +31,21 @@ class ProfileMakerApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.amber,
       ),
-      routes: {
-        '/': (context) => const ProfilePage(),
-        '/step1' : (context) => PhotoPage(camera: availableCamera),
-        '/step2' : (context) => const DetailsPage(),
-        '/step3' : (context) => const PreferencesPage(),
-      }
+      home: const ProfilePage(),
+      onGenerateRoute: (settings) {
+        if(settings.name == Routes.routeProfilePage) {
+          return MaterialPageRoute(builder: (context) => const ProfilePage());
+        } else if(settings.name == Routes.routePhotoPage){
+          return MaterialPageRoute(builder: (context) => PhotoPage(camera: availableCamera));
+        } else if(settings.name == Routes.routeDetailsPage) {
+          return MaterialPageRoute(builder: (context) => const DetailsPage());
+        } else if (settings.name == Routes.routePreferencesPage) {
+          return MaterialPageRoute(builder: (context) => const PreferencesPage());
+        } else {
+          return MaterialPageRoute(builder: (context) => const ProfilePage());
+        }
+      },
     );
   }
 }
+

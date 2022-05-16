@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:profile_maker/shared/bottom_navigation.dart';
+import 'package:profile_maker/shared/routes.dart';
 import 'package:provider/provider.dart';
 
 import 'models/profile_model.dart';
@@ -97,7 +98,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           profile.saveDetails(nameController.text, emailController.text, int.parse(mobileController.text));
                           Navigator.pushNamed(
                             context,
-                            '/step3',
+                            Routes.routePreferencesPage,
                           );
                         }
 
